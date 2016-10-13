@@ -1,14 +1,11 @@
-from DHCrypto import *
-from Crypto.Cipher import AES
-from Crypto.Hash import HMAC
-from Crypto import Random as rand
+from DiffieHellman import *
 from Crypto.PublicKey import RSA
 from ProgramConstants import g,p
 
-class Alice(DHCrypto):
+class Alice(DiffieHellman):
 
     def __init__(self, p_new, g_new, password):
-        DHCrypto.__init__(self, p_new, g_new)
+        DiffieHellman.__init__(self, p_new, g_new)
         self.a = password
         self.alpha = self.exponent_modulo(self.g, password, self.p)
         print("The password is " + str(self.alpha))
@@ -38,8 +35,8 @@ def main():
     f = open('static/publickey.pub')
     ik = f.read()
     pk = RSA.importKey(ik)
-    print(pk)
     text = input("Please enter the text message")
+
     #Generate Alice's m
     m1 = int.from_bytes(a.compute_k(text),"big")
     print(m1)
@@ -51,8 +48,9 @@ def main():
     else:
         print ("The keys are NOT validated")
 
-    sig =input("Please enter the signature code")
-    if pk.verify(str(m2), tuple([int(sig),''])):
+    sig = input("Please enter the signature code")
+
+    if pk.verify(int(m2), tuple([int(sig),''])):
         print("The signature has been verified")
     else:
         print ("The signature has not been validated")

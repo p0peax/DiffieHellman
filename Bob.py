@@ -1,14 +1,12 @@
-from DHCrypto import *
-from Crypto.Cipher import AES
-from Crypto.Hash import HMAC
+from DiffieHellman import *
 import random
 
-class Bob(DHCrypto):
+class Bob(DiffieHellman):
 
     alpha = 0
 
     def __init__(self, p_new, g_new, alpha):
-        DHCrypto.__init__(self, p_new, g_new)
+        DiffieHellman.__init__(self, p_new, g_new)
         self.alpha = alpha
         self.beta = self.generate_random_b()
 

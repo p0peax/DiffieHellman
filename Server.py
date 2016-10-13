@@ -25,7 +25,7 @@ def setupk(request, db):
     f = open('static/publickey.pub','w+')
     f.write(pk.exportKey().decode())
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
-    #message = client.messages.create(body=str(b.beta),to=phone_number,from_="+13437000753")
+    client.messages.create(body=str(b.beta),to=phone_number,from_="+13437000753")
 
 
 def login1(m1):
